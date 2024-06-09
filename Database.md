@@ -1,4 +1,4 @@
-![image](https://github.com/48hour/TIL/assets/105769305/e258b255-3487-460d-a91b-2e7c03ed6de8)[Final Exam](#final-exam)
+[Final Exam](#final-exam)
 
 [1] 데이터베이스 개념 및 특징
 =============================
@@ -370,6 +370,6 @@ where
 
 ER모델      
 데이터 모델링 과정 중 개념적 모델링에 사용하는 모델 - ER다이어그램 사용
-
+![image](https://github.com/48hour/TIL/assets/105769305/e258b255-3487-460d-a91b-2e7c03ed6de8)
 
 
