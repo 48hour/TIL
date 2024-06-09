@@ -372,4 +372,10 @@ ER모델
 데이터 모델링 과정 중 개념적 모델링에 사용하는 모델 - ER다이어그램 사용
 ![image](https://github.com/48hour/TIL/assets/105769305/e258b255-3487-460d-a91b-2e7c03ed6de8)
 
+### 7. IE 표기법
+![image](https://github.com/48hour/TIL/assets/105769305/7a2915b3-0c33-45d6-854e-3662938412b2)
+
+### 8. 다음 ER 다이어그램을 테이블로 변환 (기본키 PK, 외래키 FK)
+![image](https://github.com/48hour/TIL/assets/105769305/769f0155-f986-4751-a3b2-63536edac38c)
+
 
