@@ -378,4 +378,141 @@ ER모델
 ### 8. 다음 ER 다이어그램을 테이블로 변환 (기본키 PK, 외래키 FK)
 ![image](https://github.com/48hour/TIL/assets/105769305/769f0155-f986-4751-a3b2-63536edac38c)
 
+CREATE TABLE 학생 (      
+    &emsp;학번 INT PRIMARY KEY,      
+    &emsp;이름 VARCHAR(50),      
+    &emsp;교번 INT,      
+    &emsp;FOREIGN KEY (교번) REFERENCES 교수(교번)      
+);      
 
+CREATE TABLE 교수 (      
+    &emsp;교번 INT PRIMARY KEY,      
+    &emsp;이름 VARCHAR(50)      
+);      
+
+CREATE TABLE 과목 (      
+    &emsp;과목번호 INT PRIMARY KEY,      
+    &emsp;과목명 VARCHAR(50),      
+    &emsp;교번 INT,      
+    &emsp;FOREIGN KEY (교번) REFERENCES 교수(교번)      
+);      
+
+CREATE TABLE 수강 (      
+    &emsp;학번 INT,      
+    &emsp;과목번호 INT,      
+    &emsp;성적 VARCHAR(2),      
+    &emsp;PRIMARY KEY (학번, 과목번호),      
+    &emsp;FOREIGN KEY (학번) REFERENCES 학생(학번),      
+    &emsp;FOREIGN KEY (과목번호) REFERENCES 과목(과목번호)      
+);      
+
+지도(View)      
+
+지도 뷰는 학생과 교수를 연결하는 정보를 포함      
+
+CREATE VIEW 지도 AS      
+SELECT       
+    &emsp;학생.학번,      
+    &emsp;학생.이름 AS 학생이름,      
+    &emsp;교수.교번,      
+    &emsp;교수.이름 AS 교수이름      
+FROM       
+    &emsp;학생      
+JOIN       
+    &emsp;교수 ON 학생.교번 = 교수.교번;      
+
+강의(View)      
+
+강의 뷰는 과목과 교수를 연결하는 정보를 포함      
+
+CREATE VIEW 강의 AS      
+SELECT       
+    &emsp;과목.과목번호,      
+    &emsp;과목.과목명,      
+    &emsp;교수.교번,      
+    &emsp;교수.이름 AS 교수이름      
+FROM       
+    &emsp;과목      
+JOIN       
+    &emsp;교수 ON 과목.교번 = 교수.교번;      
+
+
+### 9. 데이터 모델링 과정### 7. IE 표기법
+![image](https://github.com/48hour/TIL/assets/105769305/7a2915b3-0c33-45d6-854e-3662938412b2)
+
+### 8. 다음 ER 다이어그램을 테이블로 변환 (기본키 PK, 외래키 FK)
+![image](https://github.com/48hour/TIL/assets/105769305/769f0155-f986-4751-a3b2-63536edac38c)
+
+CREATE TABLE 학생 (      
+    &emsp;학번 INT PRIMARY KEY,      
+    &emsp;이름 VARCHAR(50),      
+    &emsp;교번 INT,      
+    &emsp;FOREIGN KEY (교번) REFERENCES 교수(교번)      
+);      
+
+CREATE TABLE 교수 (      
+    &emsp;교번 INT PRIMARY KEY,      
+    &emsp;이름 VARCHAR(50)      
+);      
+
+CREATE TABLE 과목 (      
+    &emsp;과목번호 INT PRIMARY KEY,      
+    &emsp;과목명 VARCHAR(50),      
+    &emsp;교번 INT,      
+    &emsp;FOREIGN KEY (교번) REFERENCES 교수(교번)      
+);      
+
+CREATE TABLE 수강 (      
+    &emsp;학번 INT,      
+    &emsp;과목번호 INT,      
+    &emsp;성적 VARCHAR(2),      
+    &emsp;PRIMARY KEY (학번, 과목번호),      
+    &emsp;FOREIGN KEY (학번) REFERENCES 학생(학번),      
+    &emsp;FOREIGN KEY (과목번호) REFERENCES 과목(과목번호)      
+);      
+
+지도(View)      
+
+지도 뷰는 학생과 교수를 연결하는 정보를 포함      
+
+CREATE VIEW 지도 AS      
+SELECT       
+    &emsp;학생.학번,      
+    &emsp;학생.이름 AS 학생이름,      
+    &emsp;교수.교번,      
+    &emsp;교수.이름 AS 교수이름      
+FROM       
+    &emsp;학생      
+JOIN       
+    &emsp;교수 ON 학생.교번 = 교수.교번;      
+
+강의(View)      
+
+강의 뷰는 과목과 교수를 연결하는 정보를 포함      
+
+CREATE VIEW 강의 AS      
+SELECT       
+    &emsp;과목.과목번호,      
+    &emsp;과목.과목명,      
+    &emsp;교수.교번,      
+    &emsp;교수.이름 AS 교수이름      
+FROM       
+    &emsp;과목      
+JOIN       
+    &emsp;교수 ON 과목.교번 = 교수.교번;      
+
+
+### 9. 데이터 모델링 과정
+
+요구사함 수집 및 분석 -> 개념 -> 논리 -> 물리 -> 명세서      
+
+1. 요구사항 수집 및 분석 단계      
+2. 설계 단계      
+&esmp; 개념적 모델링 -> 논리적 모델링 -> 물리적 모델링      
+
+### 10. 정규화의 필요성 (Normalization)    
+
+이상현상이 있는 테이블을 수정하여 문제를 해결하는 과정      
+1. 데이터 구조 안정성 최대화      
+2. 데이터 변경시 이상현상의 최소화      
+3. 테이블 불일치 위험의 최소화      
