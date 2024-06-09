@@ -1,4 +1,4 @@
-[Final Exam](#final-exam)
+![image](https://github.com/48hour/TIL/assets/105769305/e258b255-3487-460d-a91b-2e7c03ed6de8)[Final Exam](#final-exam)
 
 [1] 데이터베이스 개념 및 특징
 =============================
@@ -274,3 +274,102 @@ SQL 사용
 
 
 # Final exam
+
+### 1. 뷰의 개념 및 뷰의 장단점      
+- 개념      
+  - 하나 이사의 테이블을 합하여 만든 가상의 테이블      
+  - 최종 결과를 가상의 테이블로 정의하여 실제 테이블처럼 사용할 수 있도록 만든 개체
+- 장점      
+  - 편리성 - 자주 사용되는 단어를      
+  - 보안성 - 사용자별로 필요한 데이터만 선별하여 시각화, 질의 내용 암호화 가능      
+  - 독립성 - 원본 테이블의 구조가 변해도 응용에 영향을 주지 않도록 함
+- 특징      
+  - 원본 데이터 값에 따라 같이 변함      
+  - 삽입, 삭제, 갱신 연산에 많은 제약이 따름
+ 
+### 2. 판매가격이 20000원 이상인 도서의 도서번호, 도서이름, 고객이름, 출판사, 판매가격을 보여주는 highorders를 생성
+#### 완전 두괄식 진행이라곤 느껴짐
+CREATE VIEW 뷰이름 [(열이름[, ... n)]]      
+AS SELECT 문      
+
+create view highorders      
+as select b.bookid, b.bookname c.name, b.publisher, o.saleprice      
+from book b, orders o, customer c      
+where b.bookid = o.bookid and o.custid = c.custid and saleprice >= 20000;      
+
+create view highorders      
+-- SELECT 문을 통해 원하는 데이터를 추출      
+as select       
+    &emsp;b.bookid,       -- 도서의 ID (도서번호)      
+    &emsp;b.bookname,     -- 도서의 이름      
+    &emsp;c.name,         -- 고객의 이름      
+    &emsp;b.publisher,    -- 도서의 출판사      
+    &emsp;o.saleprice     -- 판매 가격      
+-- FROM 절에서는 여러 테이블을 사용. 각 테이블은 별칭을 사용하여 참조.      
+from       
+    &emsp;book b,         -- 도서 정보가 저장된 book 테이블, b라는 별칭 사용      
+    &emsp;orders o,       -- 주문 정보가 저장된 orders 테이블, o라는 별칭 사용      
+    &emsp;customer c      -- 고객 정보가 저장된 customer 테이블, c라는 별칭 사용      
+-- WHERE 절은 조건을 지정.      
+where       
+    &emsp;b.bookid = o.bookid   -- book 테이블과 orders 테이블을 도서 ID(bookid)로 조인(join)      
+    &emsp;and o.custid = c.custid -- orders 테이블과 customer 테이블을 고객 ID(custid)로 조인(join)      
+    &emsp;and o.saleprice >= 20000; -- 조건: 판매가격(saleprice)이 20000원 이상인 경우    
+
+### 3. highorders 뷰에서 판매가격 속성을 삭제하는 명령을 수행
+
+create or replace view highorders      
+as select b.bookid, b.bookname, c.name, b.publisher      
+from book b, orders o, customer c      
+where b.bookid = o.orders and o.custid = c.custid and saleprice >= 20000;      
+
+-- 뷰(View)를 생성하거나, 기존 뷰를 대체하는 SQL 문.      
+create or replace view highorders            
+-- SELECT 문을 통해 필요한 데이터를 추출.      
+as select       
+    &emsp;b.bookid,       -- 도서의 ID (도서번호)      
+    &emsp;b.bookname,     -- 도서의 이름      
+    &emsp;c.name,         -- 고객의 이름      
+    &emsp;b.publisher     -- 도서의 출판사      
+-- FROM 절에서는 여러 테이블을 사용. 각 테이블은 별칭을 사용하여 참조.      
+from       
+    &emsp;book b,         -- 도서 정보가 저장된 book 테이블, b라는 별칭 사용      
+    &emsp;orders o,       -- 주문 정보가 저장된 orders 테이블, o라는 별칭 사용      
+    &emsp;customer c      -- 고객 정보가 저장된 customer 테이블, c라는 별칭 사용      
+-- WHERE 절은 조건을 지정.      
+where       
+    &emsp;b.bookid = o.bookid   -- book 테이블과 orders 테이블을 도서 ID(bookid)로 조인(join)      
+    &emsp;and o.custid = c.custid -- orders 테이블과 customer 테이블을 고객 ID(custid)로 조인(join)      
+    &emsp;and o.saleprice >= 20000; -- 조건: 판매가격(saleprice)이 20000원 이상인 경우      
+
+-- 위의 SELECT 문에서는 더 이상 판매가격(saleprice)을 선택하지 않으므로,       
+-- 뷰에서 판매가격 속성이 삭제.      
+
+### 4. 인덱스의 개념 및 특징
+
+- Index(색인)
+      - 데이터를 쉽고 빠르게 찾을 수 있도록 만든데이터 구조
+      - 투플의 키 값에 대한 물리적 위치를 기록해둔 자료구조
+- 장점
+      - 검색 속도 향상 : 컬럼 값에 대한 레코드 위치 정보를 가짐
+      - 정렬 및 순서 유지 : order vy 절의 성능 향상
+        - 중복 제거 : unique 인덱스 사용
+        - 조인 성능 향상 : 여러 테이블 간의 관계를 효율적으로 처리가능
+        - 쿼리 성능 향상
+- 단점
+        -인덱스가 공간을 차지하여 추가적인 공간 필요, 약 10%
+        - 처음 인덱스 생성하는데 시간소요
+        - 데이터의 변경 작업(삽입, 삭제, 갱신)이 자주 일어나는 경우 성능 하락 가능성
+
+### 5. 트리거에 대해서 설명
+
+- 데이터의 변경문이 실행될 떄 자동으로 같이 실행되는 프리시저
+- 트리거는 데이터의 변경이 실핼될 때 부수적으로 필요한 데이터의 기본값 제공, 데이터 제약 준수, SQL 뷰의 수정, 참조무결성 작업 등을 수행
+
+### 6. ER모델의 표현 방법
+
+ER모델      
+데이터 모델링 과정 중 개념적 모델링에 사용하는 모델 - ER다이어그램 사용
+
+
+
